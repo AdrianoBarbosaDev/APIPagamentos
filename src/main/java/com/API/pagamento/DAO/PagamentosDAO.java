@@ -36,11 +36,15 @@ public interface PagamentosDAO extends JpaRepository<Pagamentos, Long> {
 
 	List<Pagamentos> findByStatus(String status);
 
-//	void remove(Long id);
-	
 	public default void remove(Long id) {
-		this.deleteById(id);
-		throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+		Optional<Pagamentos> optPagamento = findById(id);
+		Pagamentos newPagamento = optPagamento.get();
+		if(newPagamento.getStatus().equals("Pendente de Processamento")) {
+			this.deleteById(id);
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+		} else {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 

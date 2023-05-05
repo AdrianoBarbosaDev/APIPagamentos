@@ -26,8 +26,5 @@ public class PagamentosService {
         return pagamentosDAO.findByStatus(status);
     }
     
-//    public void remove(Long id) {
-//    	pagamentosDAO.deleteById(id);
-//    }
     
 }
