@@ -1,4 +1,4 @@
-package com.API.pagamento.DAO;
+package com.API.pagamento.Repository;
 
 import java.util.List;
 import java.util.Optional;
