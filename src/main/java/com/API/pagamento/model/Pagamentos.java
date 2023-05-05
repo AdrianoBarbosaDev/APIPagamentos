@@ -17,11 +17,11 @@ public class Pagamentos {
 	private Long codDebito;
 	@Column(name = "Documento")
 	private String documento;
-	@Column
+	@Column(name = "metodoPagamento")
 	private String metodoPagamento;
-	@Column
+	@Column(name = "numeroCartao")
 	private String numeroCartao;
-	@Column
+	@Column(name = "valorPagamento")
 	private BigDecimal valorPagamento;
 	@Column(name = "Status")
 	private String status;

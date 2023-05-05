@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.API.pagamento.DAO.PagamentosDAO;
+import com.API.pagamento.DAO.PagamentosRepository;
 import com.API.pagamento.model.Pagamentos;
 
 @Service
 public class PagamentosService {
 	
     @Autowired
-    private PagamentosDAO pagamentosDAO;
+    private PagamentosRepository pagamentosDAO;
 
     public List<Pagamentos> findBycodDebito(String CodDebito) {
         return pagamentosDAO.findBycodDebito(CodDebito);
@@ -26,8 +26,5 @@ public class PagamentosService {
         return pagamentosDAO.findByStatus(status);
     }
     
-//    public void remove(Long id) {
-//    	pagamentosDAO.deleteById(id);
-//    }
     
 }

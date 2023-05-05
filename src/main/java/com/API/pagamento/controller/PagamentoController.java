@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.API.pagamento.DAO.PagamentosDAO;
+import com.API.pagamento.DAO.PagamentosRepository;
 import com.API.pagamento.model.Pagamentos;
 
 @RestController
@@ -24,7 +24,7 @@ import com.API.pagamento.model.Pagamentos;
 public class PagamentoController {
 	
 	@Autowired
-	private PagamentosDAO pagamentosDAO;
+	private PagamentosRepository pagamentosDAO;
 	
 	@GetMapping("/{id}")
 	public Pagamentos buscarPagamentosPorId(@PathVariable Long id) {
