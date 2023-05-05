@@ -11,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.API.pagamento.model.Pagamentos;
 
 @Repository
-public interface PagamentosDAO extends JpaRepository<Pagamentos, Long> {
+public interface PagamentosRepository extends JpaRepository<Pagamentos, Long> {
 
 	public default Pagamentos update(Long id, Pagamentos pagamento) {
 		Optional<Pagamentos> optPagamento = findById(id);
