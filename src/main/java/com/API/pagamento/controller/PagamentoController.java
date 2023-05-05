@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.API.pagamento.DAO.PagamentosRepository;
+import com.API.pagamento.Repository.PagamentosRepository;
 import com.API.pagamento.model.Pagamentos;
 
 @RestController
@@ -24,11 +24,11 @@ import com.API.pagamento.model.Pagamentos;
 public class PagamentoController {
 	
 	@Autowired
-	private PagamentosRepository pagamentosDAO;
+	private PagamentosRepository pagamentosRepository;
 	
 	@GetMapping("/{id}")
 	public Pagamentos buscarPagamentosPorId(@PathVariable Long id) {
-		Optional<Pagamentos> pagamento = pagamentosDAO.findById(id);
+		Optional<Pagamentos> pagamento = pagamentosRepository.findById(id);
 		if(pagamento.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
@@ -41,13 +41,13 @@ public class PagamentoController {
             @RequestParam(name = "documento", required = false) String documento,
             @RequestParam(name = "status", required = false) String status) {
 		 if (codDebito != null) {
-	            return pagamentosDAO.findBycodDebito(codDebito);
+	            return pagamentosRepository.findBycodDebito(codDebito);
 	        } else if (documento != null) {
-	            return pagamentosDAO.findByDocumento(documento);
+	            return pagamentosRepository.findByDocumento(documento);
 	        } else if (status != null) {
-	            return pagamentosDAO.findByStatus(status);
+	            return pagamentosRepository.findByStatus(status);
 	        } else {
-	        	return pagamentosDAO.findAll();
+	        	return pagamentosRepository.findAll();
 	        }
 	}
 	
@@ -56,7 +56,7 @@ public class PagamentoController {
 		pagamentos.setStatus("Pendente de Processamento");
 		if(pagamentos.getMetodoPagamento().equalsIgnoreCase("cartao_credito") || pagamentos.getMetodoPagamento().equalsIgnoreCase("cartao_debito")) {
 			if(pagamentos.getNumeroCartao()!=null) {
-				return pagamentosDAO.save(pagamentos);
+				return pagamentosRepository.save(pagamentos);
 			} else {
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 			}
@@ -65,17 +65,17 @@ public class PagamentoController {
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 			}
 		}
-		return pagamentosDAO.save(pagamentos);
+		return pagamentosRepository.save(pagamentos);
 	}
 	
 	@PutMapping("/{id}")
 	public Pagamentos atualizarPagamentos(@PathVariable Long id, @RequestBody Pagamentos pagamento) {
-		return pagamentosDAO.update(id, pagamento);
+		return pagamentosRepository.update(id, pagamento);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void deletaProduto(@PathVariable Long id) {
-		pagamentosDAO.remove(id);
+		pagamentosRepository.remove(id);
 	}
 	
 }
