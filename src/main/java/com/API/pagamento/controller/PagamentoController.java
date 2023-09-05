@@ -20,13 +20,18 @@ import org.springframework.web.server.ResponseStatusException;
 import com.API.pagamento.Repository.PagamentosRepository;
 import com.API.pagamento.model.Pagamentos;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/pagamentos")
+@Tag(name = "Pagamentos")
 public class PagamentoController {
 	
 	@Autowired
 	private PagamentosRepository pagamentosRepository;
 	
+	@Operation(summary = "Busca Pagamento pelo ID")
 	@CrossOrigin(origins = "*")
 	@GetMapping("/{id}")
 	public Pagamentos buscarPagamentosPorId(@PathVariable Long id) {
@@ -37,6 +42,7 @@ public class PagamentoController {
 		return pagamento.get();
 	}
 
+	@Operation(summary = "Busca Todos os Pagamentos",description = "Busca a partir do Parâmetro fornecido, caso todos sejam nulos, retorna a lista de todos os pagamentos")
 	@CrossOrigin(origins = "*")
 	@GetMapping
 	public List<Pagamentos> listaPagamentos(
@@ -53,6 +59,8 @@ public class PagamentoController {
 	        	return pagamentosRepository.findAll();
 	        }
 	}
+	
+	@Operation(summary = "Salva Pagamentos")
 	@CrossOrigin(origins = "*")
 	@PostMapping
 	public Pagamentos salvaPagamentos(@RequestBody Pagamentos pagamentos) {
@@ -71,11 +79,13 @@ public class PagamentoController {
 		return pagamentosRepository.save(pagamentos);
 	}
 	
+	@Operation(summary = "Atualiza Pagamentos")
 	@PutMapping("/{id}")
 	public Pagamentos atualizarPagamentos(@PathVariable Long id, @RequestBody Pagamentos pagamento) {
 		return pagamentosRepository.update(id, pagamento);
 	}
 	
+	@Operation(summary = "Deleta Pagamentos")
 	@DeleteMapping("/{id}")
 	public void deletaProduto(@PathVariable Long id) {
 		pagamentosRepository.remove(id);
